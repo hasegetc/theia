@@ -207,7 +207,7 @@ export class GitContribution implements CommandContribution, MenuContribution, T
     @inject(GitRepositoryProvider) protected readonly repositoryProvider: GitRepositoryProvider;
     @inject(Git) protected readonly git: Git;
     @inject(GitErrorHandler) protected readonly gitErrorHandler: GitErrorHandler;
-    @inject(CommandRegistry) protected readonly commands: CommandRegistry;
+    @inject(CommandRegistry) protected readonly commandRegistry: CommandRegistry;
     @inject(ProgressService) protected readonly progressService: ProgressService;
     @inject(GitPreferences) protected readonly gitPreferences: GitPreferences;
 
@@ -476,6 +476,7 @@ export class GitContribution implements CommandContribution, MenuContribution, T
             isVisible: widget => this.workspaceService.opened && (!widget || widget instanceof ScmWidget) && !this.repositoryProvider.selectedRepository
         });
     }
+
     async amend(): Promise<void> {
         {
             const scmRepository = this.repositoryProvider.selectedScmRepository;
@@ -527,13 +528,13 @@ export class GitContribution implements CommandContribution, MenuContribution, T
         const registerItem = (item: Mutable<TabBarToolbarItem>) => {
             const commandId = item.command;
             const id = '__git.tabbar.toolbar.' + commandId;
-            const command = this.commands.getCommand(commandId);
-            this.commands.registerCommand({ id, iconClass: command && command.iconClass }, {
-                execute: (widget, ...args) => widget instanceof ScmWidget && this.commands.executeCommand(commandId, ...args),
-                isEnabled: (widget, ...args) => widget instanceof ScmWidget && this.commands.isEnabled(commandId, ...args),
+            const command = this.commandRegistry.getCommand(commandId);
+            this.commandRegistry.registerCommand({ id, iconClass: command && command.iconClass }, {
+                execute: (widget, ...args) => widget instanceof ScmWidget && this.commandRegistry.executeCommand(commandId, ...args),
+                isEnabled: (widget, ...args) => widget instanceof ScmWidget && this.commandRegistry.isEnabled(commandId, ...args),
                 isVisible: (widget, ...args) =>
                     widget instanceof ScmWidget &&
-                    this.commands.isVisible(commandId, ...args) &&
+                    this.commandRegistry.isVisible(commandId, ...args) &&
                     !!this.repositoryProvider.selectedRepository
             });
             item.command = id;
