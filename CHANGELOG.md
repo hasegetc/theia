@@ -4,18 +4,21 @@
 
 - [core] fixed handling of environment variables on Windows [#7973](https://github.com/eclipse-theia/theia/pull/7973)
 - [plugin-ext] fix file-icon incorrectly displays name icon with a dot in name [#7680](https://github.com/eclipse-theia/theia/pull/7680)
+- [core] Added support for Node.js `12.x`. From now on, you can use Node.js `12.x` to build Theia from the sources. The recommended minimum version is aligned with `electron`: Node.js `12.14.1`. The support for Node.js `10.x` will be dropped in one of the forthcoming releases. [#7968](https://github.com/eclipse-theia/theia/pull/7968)
 
 Breaking Changes:
 
+- [core] fixed typo (`matchKeybiding` to `matchKeybinding`) in `KeybindingRegistry` [#8193](https://github.com/eclipse-theia/theia/pull/8193)
+- [terminal] fixed typo (`rezize` to `resize`) in `TerminalWidget` [#8193](https://github.com/eclipse-theia/theia/pull/8193)
 <a name="1_4_0_replace_json"></a>
 - [[json]](#1_4_0_replace_json) replaced `@theia/json` Theia extension with `vscode.json-language-features` VS Code extension [#8112](https://github.com/eclipse-theia/theia/pull/8112)
   - You can register JSON validations at application startup by implementing `JsonSchemaContribution` Theia contribution point.
   - Alternatively you can provide JSON validations using VS Code [contributes.jsonValidation](https://code.visualstudio.com/api/references/contribution-points#contributes.jsonValidation) contribution point.
 <a name="1_4_0_absolute_user_storage_uri"></a>
 - [[user-storage]](#1_4_0_absolute_user_storage_uri) settings URI must be an absolute to satisfy expectations of `vscode.json-language-features` [#8112](https://github.com/eclipse-theia/theia/pull/8112)
-  - If you imlpement a custom user storage make sure to check old relaitve locations, otherwise it can cause user data loss.
+  - If you implement a custom user storage make sure to check old relative locations, otherwise it can cause user data loss.
 <a name="1_4_0_deprecate_languages"></a>
-- [[languages]](#1_4_0_deprecate_languages) `@theia/languages` extension is deprecated, use VS Code extensions to provide language smartness: 
+- [[languages]](#1_4_0_deprecate_languages) `@theia/languages` extension is deprecated, use VS Code extensions to provide language smartness:
   https://code.visualstudio.com/api/language-extensions/language-server-extension-guide [#8112](https://github.com/eclipse-theia/theia/pull/8112)
 
 ## v1.3.0
